@@ -73,7 +73,24 @@ enum{
 };
 
 
-
+/*
+                +-----------+
+                |argc       |
+                |argv       |
+                |address    |<-----调用main函数的调用者的下一条语句地址
+stack frame---->|old bp     |<-----new bp
+                |local var1 |
+                |local var..|
+                +-----------+
+                |arg1       |
+                |arg..      |
+                |address    |<-----main函数调用完fun1()后，下一条语句的地址
+stack frame---->|old bp     |<-----new bp
+                |local var1 |
+                |local var..|
+                +-----------+
+                |           |<-----sp
+*/
 
 //virtual machine
 int eval(){
