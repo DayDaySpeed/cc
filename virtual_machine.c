@@ -1,3 +1,4 @@
+//win64,align 8 byte
 #include <fcntl.h>
 #include <memory.h>
 #include <stdlib.h>
