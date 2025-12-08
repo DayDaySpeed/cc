@@ -1,0 +1,123 @@
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+//我规定，64位中，数组数据都以8字节存储，尽管会浪费很多空间
+#include "lexical.h"
+#include "defs.h"
+
+
+
+int next(){
+
+  
+
+
+    return -1;
+}
+
+
+int parse(){
+
+
+    char currentchar;
+
+    int hash;
+
+
+
+  while((currentchar = *currentcharpointer) != 0){
+        ++currentcharpointer;
+
+        //start parse token
+
+        if(currentchar == '\n'){
+            ++line;
+        }else if(currentchar == '#'){
+            //donothing skip
+            while(*currentcharpointer != '\n' && *currentcharpointer != 0){
+                ++currentcharpointer;
+            }
+        }
+
+        //parse identifier
+        else if((currentchar >= 'a' && currentchar <= 'z')||(currentchar >= 'A' && currentchar <= 'Z')||currentchar == '_'){
+            //start parse identifier
+            //look ahead one char,the start of a string
+            startcharpointer = --currentcharpointer;
+            hash = currentchar;
+
+            while((*currentcharpointer >= 'a' && *currentcharpointer <= 'z') || (*currentcharpointer >= 'A' && *currentcharpointer <= 'Z') || (*currentcharpointer >= '0' && *currentcharpointer <= '9') || (*currentcharpointer == '_')){
+                    hash = hash * 31 + *currentcharpointer;
+                    ++currentcharpointer;
+            }
+
+            //look for existing identifier from symbal table
+            current_table = symbals;
+            while(current_table[Token]){
+                if(current_table[Hash] == hash && !memcmp((char *)current_table[Name], startcharpointer, currentcharpointer - startcharpointer)){
+                    //find
+                    return current_table[Token];
+                }
+                //not find,next symbal table
+                current_table += IDSIZE;
+            }
+
+            //store new identifier
+            current_table[Name] = (int64)startcharpointer;//存储标识符在文件中的地址
+            current_table[Hash] = hash;
+            current_table[Token] = ID;
+            return ID;
+        }
+
+        //parse number
+        else if(currentchar >= '0' && currentchar <= '9'){
+            int currentnumber;
+            //dec(91) hex(0x78) oct(069)
+            currentnumber = currentchar - '0';
+            //dex
+            if(currentnumber > 0){
+                while(*currentcharpointer >= '0' && *currentcharpointer <= '9'){
+                    currentnumber = currentnumber * 10 + *currentcharpointer++ - '0';
+                }
+            }else
+            if(currentnumber == 0){
+                    //hex
+                if(*currentcharpointer == 'x' || *currentcharpointer == 'X'){
+                    currentchar = *++currentcharpointer;
+                    while((currentchar >= '0' && currentchar <= '9') || (currentchar >= 'a' && currentchar <= 'f') || (currentchar >= 'A' && currentchar <= 'F')){
+                        currentnumber = currentnumber * 16 + (currentchar & 15) + (currentchar > 'A' ? 9 : 0);
+                        currentchar = *++currentcharpointer;
+                    }
+                }else{
+                    //oct
+                    while(*currentcharpointer >= '0' && *currentcharpointer <= '7'){
+                        currentnumber = currentnumber * 8 + *currentcharpointer++ - '0';
+                    }
+                }
+            }
+
+            
+            return Num;
+        }
+
+        //parse string
+        else if(currentchar == '"' || currentchar == '\''){
+            //if a string or char start with " or '
+            startcharpointer = data;//指向数据段的开头
+            char samechar = currentchar;
+            while(*currentcharpointer != 0 && *currentcharpointer != samechar){//如果是0或"或'，退出
+                currentchar = *currentcharpointer++;
+                if(currentchar == '\\'){
+                    currentchar = *currentcharpointer++;
+                    if(currentchar == 'n'){currentchar = '\n';}
+                }
+                *data++ = currentchar;
+            }
+
+            currentcharpointer++;
+            
+            if(currentchar == '\''){return Num;}
+            
+        }
+    }
+}

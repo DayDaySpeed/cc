@@ -4,31 +4,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include "lexical.h"
+#include "defs.h"
 
 int token;
-char *src,*old_src;
-int poolsize;
-int line;
-
-
-
-
-void next(){
-
-    token = *src++;//先对src取值，然后src指针右移
-
-    return;
-}
 
 void expression(int level){
     //TODO
 }
 
 void program(){
-    next();
+    token = next(currentcharpointer);
     while(token > 0){
         printf("token is: %c\n",token);
-        next();
+        next(currentcharpointer);
     }
 }
 
@@ -47,27 +36,39 @@ int main(int argc,char **argv){
     --argc;
     ++argv;
 
-    poolsize = 256 * 1024;//alloc 256kb as buf
     line = 1;
+
+
+    if(!(currentcharpointer = startcharpointer = malloc(poolsize))){
+        printf("could not mallc (%d) for source area\n",poolsize);
+    }
+
+    if(!(data = malloc(poolsize))){
+        printf("could not malloc (%d) for data",poolsize);
+    }
+    
+    if(!(symbals = malloc(poolsize))){
+        printf("could not malloc (%d) for symbals",poolsize);
+    }
 
     if((fd = open(*argv,O_RDONLY)) < 0){
         printf("could not open(%s)\n",*argv);
         return -1;
     }
 
-    if(!(src = old_src = malloc(poolsize))){
-        printf("could not mallc (%d) for source area\n",poolsize);
-    }
 
-    if((i = read(fd,src,poolsize-1)) <= 0){
+
+    if((i = read(fd,currentcharpointer,poolsize-1)) <= 0){
         printf("read faliure returned %d",i);
         return -1;
     }
 
-    src[i] = 0;
+
+    
+
+    currentcharpointer[i] = 0;//在源码后面加个0作为结束符EOF
+
     close(fd);
-
-
 
     program();
 
