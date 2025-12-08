@@ -1,3 +1,0 @@
-afjdslfj
-"string"
-hello\nworld

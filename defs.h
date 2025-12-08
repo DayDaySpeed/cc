@@ -18,7 +18,7 @@ char *data;
 int64 *symbals,*current_table;
 
 
-int next(char *currentcharpointer);
+int next(void);
 
 
 

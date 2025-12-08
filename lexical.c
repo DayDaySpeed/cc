@@ -7,16 +7,7 @@
 
 
 
-int next(){
-
-  
-
-
-    return -1;
-}
-
-
-int parse(){
+int next(void){
 
 
     char currentchar;
@@ -64,6 +55,7 @@ int parse(){
 
             //store new identifier
             current_table[Name] = (int64)startcharpointer;//存储标识符在文件中的地址
+            printf("current_table[Name] = %d\n",current_table[Name]);
             current_table[Hash] = hash;
             current_table[Token] = ID;
             return ID;
@@ -105,19 +97,21 @@ int parse(){
             //if a string or char start with " or '
             startcharpointer = data;//指向数据段的开头
             char samechar = currentchar;
-            while(*currentcharpointer != 0 && *currentcharpointer != samechar){//如果是0或"或'，退出
+            while(*currentcharpointer != 0 && *currentcharpointer != samechar){
                 currentchar = *currentcharpointer++;
                 if(currentchar == '\\'){
                     currentchar = *currentcharpointer++;
                     if(currentchar == 'n'){currentchar = '\n';}
                 }
-                *data++ = currentchar;
-            }
 
-            currentcharpointer++;
-            
-            if(currentchar == '\''){return Num;}
-            
+                *data++ = currentchar;       
+            }
+            *data++ = 0;
+            ++currentcharpointer;
+            printf("%s\n",startcharpointer);
+            if(samechar == '\''){return Num;}
+            return 0;
         }
     }
+    return 0;
 }

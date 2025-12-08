@@ -4,7 +4,7 @@ project(CC)                   # 项目名称和语言
 set(CMAKE_C_STANDARD 11)               # 指定 C 标准
 
 # 定义可执行文件，包含多个源文件
-add_executable(myapp
+add_executable(lexical
     design.c
     lexical.c
 )
