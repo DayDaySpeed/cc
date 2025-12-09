@@ -55,7 +55,7 @@ int next(void){
 
             //store new identifier
             current_table[Name] = (int64)startcharpointer;//存储标识符在文件中的地址
-            printf("current_table[Name] = %d\n",current_table[Name]);
+            //printf("current_table[Name] = %d\n",current_table[Name]);
             current_table[Hash] = hash;
             current_table[Token] = ID;
             return ID;
@@ -86,16 +86,14 @@ int next(void){
                         currentnumber = currentnumber * 8 + *currentcharpointer++ - '0';
                     }
                 }
-            }
-
-            
+            }  
             return Num;
         }
 
         //parse string
         else if(currentchar == '"' || currentchar == '\''){
             //if a string or char start with " or '
-            startcharpointer = data;//指向数据段的开头
+            //startcharpointer = data;//指向数据段的开头
             char samechar = currentchar;
             while(*currentcharpointer != 0 && *currentcharpointer != samechar){
                 currentchar = *currentcharpointer++;
@@ -108,10 +106,120 @@ int next(void){
             }
             *data++ = 0;
             ++currentcharpointer;
-            printf("%s\n",startcharpointer);
+            //printf("%s\n",startcharpointer);
             if(samechar == '\''){return Num;}
-            return 0;
+            return currentchar;
+        }
+
+
+        //注释，仅支持//
+        else if(currentchar == '/'){
+            if(*currentcharpointer == '/'){
+                //一直自增currentcharpointer,直到/n
+                while(*currentcharpointer != 0 && *currentcharpointer != '\n'){
+                    ++currentcharpointer;
+                }
+            }else{
+                //如果/后面不是/，则是除号
+                return Div;
+            }
+        }
+
+        //others
+        else if(currentchar == '='){
+            //需要解析是== 还是 =
+            if(*currentcharpointer == '='){
+                //==
+                ++currentcharpointer;
+                return Eq;
+            }else{
+                //=
+                return Assign;
+            }
+        }
+        else if(currentchar == '+'){
+            //parse '+' or '++'
+            if(*currentcharpointer == '+'){
+                ++currentcharpointer;
+                return Inc;
+            }else{
+                return Add;
+            }
+        }
+        else if(currentchar == '-'){
+            //parse '-' or '--'
+            if(*currentcharpointer == '-'){
+                ++currentcharpointer;
+                return Dec;
+            }else{
+                return Sub;
+            }
+        }
+        else if(currentchar == '!'){
+            //parse '!='
+            if(*currentcharpointer == '='){
+                ++currentcharpointer;
+                return Ne;
+            }
+        }
+        else if(currentchar == '<'){
+            //parse '<' or '<<' or '<='
+            if(*currentcharpointer == '<'){
+                ++currentcharpointer;
+                return Shl;
+            }else if(*currentcharpointer == '='){
+                ++currentcharpointer;
+                return Le;
+            }else{
+                return Lt;
+            }
+        }
+        else if(currentchar == '>'){
+            //parse '>' or '>>' or '>=
+             if(*currentcharpointer == '>'){
+                ++currentcharpointer;
+                return Shr;
+            }else if(*currentcharpointer == '='){
+                ++currentcharpointer;
+                return Ge;
+            }else{
+                return Gt;
+            }
+        }
+        else if(currentchar == '|'){
+            if (*currentcharpointer == '|'){
+                ++currentcharpointer;
+                return Lor;
+            }else{
+                return Or;
+            }
+        }
+        else if(currentchar == '&'){
+            if(*currentcharpointer == '&'){
+                ++currentcharpointer;
+                return Lan;
+            }else{
+                return And;
+            }
+        }
+        else if(currentchar == '^'){
+            return Xor;
+        }
+        else if(currentchar == '%'){
+            return Mod;
+        }
+        else if(currentchar == '*'){
+            return Mul;
+        }
+        else if(currentchar == '['){
+            return Brak;
+        }
+        else if(currentchar == '?'){
+            return Cond;
+        }
+        else if(currentchar == '~' || currentchar == ';' || currentchar == '{' || currentchar == '}' || currentchar == '(' || currentchar == ')' || currentchar == ']' || currentchar == ',' || currentchar == ';'){
+            return currentchar;
         }
     }
-    return 0;
+    return currentchar;
 }

@@ -50,7 +50,6 @@ int main(int argc,char **argv){
     memset(data, 0, poolsize);
     memset(symbals,0, poolsize);
 
-
     //read file
     if((fd = open(*argv,O_RDONLY)) < 0){
         printf("could not open(%s)\n",*argv);
