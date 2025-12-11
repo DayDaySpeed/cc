@@ -1,9 +1,4 @@
 //small compiler for c in win64
-#include <fcntl.h>
-#include <memory.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 #include "lexical.h"
 #include "defs.h"
 

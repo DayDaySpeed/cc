@@ -1,6 +1,3 @@
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 //我规定，64位中，数组数据都以8字节存储，尽管会浪费很多空间
 #include "lexical.h"
 #include "defs.h"

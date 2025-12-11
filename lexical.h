@@ -2,7 +2,6 @@
 #define LEXICAL_H
 
 
-
 enum{
     Num=128,    //数字常量        
     Func,       //函数

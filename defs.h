@@ -1,5 +1,10 @@
 #ifndef DEFS_H
 #define DEFS_H
+#include <fcntl.h>
+#include <memory.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #define int64 long long
 
 int line;
