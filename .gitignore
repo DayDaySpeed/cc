@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 编译生成的二进制文件
 *.o
 *.obj
@@ -35,3 +36,8 @@ node_modules/
 venv/
 __pycache__/
 *.pyc
+=======
+*.exe
+.vscode/
+build/
+>>>>>>> virtualmachine
