@@ -9,5 +9,5 @@ cmake --build .
 ### 运行 
 ```powershell
 cd build/build-mingw
-.\lexical.exe test.txt
+.\syntax.exe test.txt
 ```

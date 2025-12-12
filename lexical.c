@@ -60,7 +60,7 @@ int next(void){
 
         //parse number
         else if(currentchar >= '0' && currentchar <= '9'){
-            int currentnumber;
+
             //dec(91) hex(0x78) oct(069)
             currentnumber = currentchar - '0';
             //dex

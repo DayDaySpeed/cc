@@ -1,15 +1,7 @@
 //small compiler for c in win64
-#include "lexical.h"
+
 #include "defs.h"
 
-int token;
-
-
-void program(){
-    while((token = next()) != 0){
-        printf("token is: %d\n", token);
-    }
-}
 
 
 //virtual machine
@@ -59,7 +51,8 @@ int main(int argc,char **argv){
 
     
     printf("hello\n");
-    program();
+    token = next();
+    printf("result is : %d\n", syntax());
     printf("finish\n");
     return eval();
 }

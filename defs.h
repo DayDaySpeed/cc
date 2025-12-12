@@ -8,13 +8,14 @@
 #define int64 long long
 
 int line;
-
+int token;
 //alloc memmory size
 #define poolsize 1024*1024
 
 //file
 char *startcharpointer;
 char *currentcharpointer;
+int currentnumber;
 
 //virtual machine
 char *data;
@@ -23,8 +24,9 @@ char *data;
 int64 *symbals,*current_table;
 
 
-int next(void);
 
+int next(void);
+int syntax(void);
 
 
 
