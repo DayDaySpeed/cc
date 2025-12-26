@@ -28,14 +28,26 @@ int main(int argc,char **argv){
     if(!(data = malloc(poolsize))){
         printf("could not malloc (%d) for data",poolsize);
     }
+    if(!(text = old_text = malloc(poolsize))){
+        printf("could not malloc (%d) for text segment",poolsize);
+    }
+    if(!(stack = malloc(poolsize))){
+        printf("could not malloc (%d) for stack segment",poolsize);
+    }
 
     if(!(symbals = malloc(poolsize))){
         printf("could not malloc (%d) for symbals",poolsize);
     }
 
     memset(currentcharpointer,0,poolsize);
+    memset(text, 0, poolsize);
     memset(data, 0, poolsize);
+    memset(stack, 0, poolsize);
     memset(symbals,0, poolsize);
+
+    //initialize virtual machine's pointers
+    bp = sp = (int64 *)((int64)stack + poolsize);
+    ax = 0;
 
     //read file
     if((fd = open(*argv,O_RDONLY)) < 0){

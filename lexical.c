@@ -90,21 +90,21 @@ int next(void){
         //parse string
         else if(currentchar == '"' || currentchar == '\''){
             //if a string or char start with " or '
-            //startcharpointer = data;//指向数据段的开头
-            char samechar = currentchar;
-            while(*currentcharpointer != 0 && *currentcharpointer != samechar){
-                currentchar = *currentcharpointer++;
-                if(currentchar == '\\'){
-                    currentchar = *currentcharpointer++;
-                    if(currentchar == 'n'){currentchar = '\n';}
-                }
+            currentstringpointer = data;//字符串存放地址
 
-                *data++ = currentchar;       
+            char currentstring = currentchar;//定义临时变量，当遍历到" or '时，意味着字符或字符串获取完毕
+            while(*currentcharpointer != 0 && *currentcharpointer != currentchar){
+                currentnumber = currentstring = *currentcharpointer++;//保存第一个字符，如果不是字符串，则返回此字符，返回类型是Num，不写入data
+                if(currentstring == '\\'){
+                    currentstring = *currentcharpointer++;
+                    if(currentstring == 'n'){currentstring = '\n';}
+                }
+                if(currentchar == '"'){*data++ = currentstring; }      
             }
-            *data++ = 0;
+            //*data++ = 0;//不在这边加0是因为还要支持"abc""abc""bdddd"这种写法，拼接成"abcabcbdddd"
             ++currentcharpointer;
             //printf("%s\n",startcharpointer);
-            if(samechar == '\''){return Num;}
+            if(currentchar == '\''){return Num;}
             return currentchar;
         }
 

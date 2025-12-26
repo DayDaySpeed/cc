@@ -16,18 +16,32 @@ int token;
 char *startcharpointer;
 char *currentcharpointer;
 int currentnumber;
-
+char *currentstringpointer;
 //virtual machine
-char *data;
+int64 *text,      // text segment
+    *stack,     // stack segment
+    *old_text; 
+char *data;     // data segment
+//virtual machine registers
+int64   
+*pc,            // point start
+*bp,            // point bp
+*sp;            // point sp
+int64 ax,         //64bit general regester
+    cycle;
+
+int index_bp;   //index of bp
+
 
 //lexical parse
 int64 *symbals,*current_table;
-
+//syntax parse
+int etype;  //表达式的最终类型
 
 
 int next(void);
 int syntax(void);
-
+int eval(void);
 
 
 
