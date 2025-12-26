@@ -1,3 +1,0 @@
-D:\develop\CMake\bin\cmake.exe -E rm -f CMakeFiles\lexical.dir/objects.a
-D:\develop\vscode\mingw64\bin\ar.exe qc CMakeFiles\lexical.dir/objects.a @CMakeFiles\lexical.dir\objects1.rsp
-D:\develop\vscode\mingw64\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\lexical.dir/objects.a -Wl,--no-whole-archive -o lexical.exe -Wl,--out-implib,liblexical.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\lexical.dir\linkLibs.rsp

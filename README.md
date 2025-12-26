@@ -37,3 +37,11 @@ origin 是远程仓库的默认名字。
 git branch -r
 或者在远程仓库（如 GitHub/GitLab）查看。
 ```
+
+### 一次性移除所有已跟踪但在 .gitignore 中的文件
+
+```bash
+git rm -r --cached .
+git add .
+git commit -m "Apply .gitignore and remove tracked files"
+```

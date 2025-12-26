@@ -1,3 +1,0 @@
-D:/develop/Compiler/cc/build/CMakeFiles/syntax.dir
-D:/develop/Compiler/cc/build/CMakeFiles/edit_cache.dir
-D:/develop/Compiler/cc/build/CMakeFiles/rebuild_cache.dir
