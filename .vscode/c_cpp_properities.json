@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "name": "WinCompiler",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "compilerPath": "D:/develop/vscode/mingw64/bin/gcc.exe",   
+            "cStandard": "c11",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}

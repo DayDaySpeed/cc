@@ -1,0 +1,3 @@
+D:/develop/Compiler/cc/build/build-mingw/CMakeFiles/syntax.dir
+D:/develop/Compiler/cc/build/build-mingw/CMakeFiles/edit_cache.dir
+D:/develop/Compiler/cc/build/build-mingw/CMakeFiles/rebuild_cache.dir
